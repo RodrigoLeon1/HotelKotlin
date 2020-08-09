@@ -7,7 +7,7 @@ import javax.persistence.*
 class Room(
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
     val number: String,

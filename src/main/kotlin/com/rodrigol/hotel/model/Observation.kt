@@ -8,7 +8,7 @@ import javax.persistence.*
 class Observation(
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
     val description: String,

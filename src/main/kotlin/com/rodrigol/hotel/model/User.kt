@@ -8,7 +8,7 @@ import javax.persistence.*
 class User(
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
     val name: String,

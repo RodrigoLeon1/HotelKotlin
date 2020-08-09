@@ -8,7 +8,7 @@ import javax.persistence.*
 class Reservation(
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
     val from: Date,
