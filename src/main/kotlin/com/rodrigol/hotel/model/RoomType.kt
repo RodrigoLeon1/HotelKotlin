@@ -9,7 +9,10 @@ import javax.persistence.Table
 @Table(name = "room_types")
 class RoomType(
 
-    @Id @GeneratedValue val id: Long,
+    @Id
+    @GeneratedValue
+    val id: Long,
+
     val type: String
 
 )

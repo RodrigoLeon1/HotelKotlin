@@ -1,8 +1,12 @@
 package com.rodrigol.hotel.repository
 
-import org.apache.catalina.User
+import com.rodrigol.hotel.model.User
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface UserRepository: JpaRepository<User, Long>
+interface UserRepository: JpaRepository<User, Long> {
+
+    fun findByDni(dni: String): User?
+
+}

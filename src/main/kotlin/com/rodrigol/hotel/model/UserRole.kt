@@ -9,7 +9,10 @@ import javax.persistence.Table
 @Table(name = "user_roles")
 class UserRole(
 
-    @Id @GeneratedValue val id: Long,
+    @Id
+    @GeneratedValue
+    val id: Long,
+
     val role: String
 
 )

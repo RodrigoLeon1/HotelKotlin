@@ -87,3 +87,19 @@ CREATE TABLE `reservations` (
 );
 
 
+/* ADDING DATA */
+
+// BASIC DATA -> USERS
+INSERT INTO `user_roles`(role) VALUES ('ADMIN'), ('CLIENT'), ('EMPLOYEE');
+
+INSERT INTO `users`(name, surname, dni, password) VALUES ('Rodrigo', 'Leon', '404040', '1234');
+
+INSERT INTO `users_x_user_roles`(id_user, id_user_role) VALUES (1, 1);
+
+
+// BASIC DATA -> HOTEL MANAGMENT
+INSERT INTO `room_floors`(floor) VALUES ('1A'), ('1B'), ('2A');
+
+INSERT INTO `room_types`(type) VALUES ('SIMPLE'), ('DOBLE'), ('MATRIMONIAL');
+
+INSERT INTO `rooms`(number, status, id_room_floor, id_room_type) VALUES ('101', 'ENABLED', 1, 1);

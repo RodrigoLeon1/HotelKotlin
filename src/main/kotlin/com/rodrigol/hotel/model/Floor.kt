@@ -9,7 +9,10 @@ import javax.persistence.Table
 @Table(name = "room_floors")
 class Floor(
 
-    @Id @GeneratedValue val id: Long,
+    @Id
+    @GeneratedValue
+    val id: Long,
+
     val floor: String
 
 )
