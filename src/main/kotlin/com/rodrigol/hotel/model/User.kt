@@ -24,12 +24,6 @@ class User(
             joinColumns = [JoinColumn(name = "id_user")],
             inverseJoinColumns = [JoinColumn(name = "id_user_role")]
     )
-    val roles: Set<UserRole>,
-
-    @OneToMany(mappedBy = "userObservation")
-    val observations: List<Observation>,
-
-    @OneToMany(mappedBy = "userReservation")
-    val reservation: List<Reservation>
+    val roles: Set<UserRole>
 
 )

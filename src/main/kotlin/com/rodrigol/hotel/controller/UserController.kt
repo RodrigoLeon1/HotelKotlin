@@ -6,7 +6,6 @@ import com.rodrigol.hotel.utils.RestUtils
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
 @RequestMapping("/api/users")
@@ -25,9 +24,22 @@ class UserController(private val userService: UserService) {
     }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Long): ResponseEntity<Optional<User>> = ResponseEntity.ok(userService.findById(id))
+    fun findById(@PathVariable id: Long): ResponseEntity<User> = ResponseEntity.ok(userService.findById(id))
 
-    //@DeleteMapping("/{id}")
-    //fun deleteById(@PathVariable id: Long) = userService.deleteById(id)
+    @PutMapping("/{id}")
+    fun updateById(@PathVariable id: Long, @RequestBody updatedUser: User): ResponseEntity<Any> {
+        return ResponseEntity.ok(userService.updateById(id, updatedUser))
+    }
+
+    //
+    @GetMapping("/{id}/reservations")
+    fun findReservationsByUserId(@PathVariable id: Long) {
+
+    }
+
+    @GetMapping("/{id}/observations")
+    fun findObservationsByUserId(@PathVariable id: Long) {
+
+    }
 
 }

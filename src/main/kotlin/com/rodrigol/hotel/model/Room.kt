@@ -11,6 +11,8 @@ class Room(
     val id: Long,
 
     val number: String,
+
+    @Enumerated(value = EnumType.STRING)
     val status: RoomStatus,
 
     @ManyToOne(fetch = FetchType.EAGER)

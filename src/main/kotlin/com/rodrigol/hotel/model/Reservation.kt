@@ -18,11 +18,11 @@ class Reservation(
     val totalChildren: Int,
     val creationDate: Date,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_user")
-    val userReservation: User,
+    val user: User,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_room")
     val room: Room
 

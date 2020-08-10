@@ -16,6 +16,6 @@ class Observation(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
-    val userObservation: User
+    val user: User
 
 )
