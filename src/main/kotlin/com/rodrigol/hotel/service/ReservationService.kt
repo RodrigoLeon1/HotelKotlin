@@ -24,9 +24,13 @@ class ReservationService(private val reservationRepository: ReservationRepositor
         return reservation.get()
     }
 
+    fun findAllByUserId(id: Long): List<Reservation> {
+        return reservationRepository.findAllByUserId(id)
+    }
+
     //
     private fun availableToReserve(from: Date, to: Date, room: Room): Boolean {
-        //val reservationsOnDates: List<Reservation> = reservationRepository.findAllBetweenDates(from, to)
+        val reservationsOnDates: List<Reservation> = reservationRepository.findAllBetweenDates(from, to)
 
         return true
     }

@@ -37,7 +37,7 @@ class ControllerAdvice: ResponseEntityExceptionHandler() {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ReservationNotAvailable::class)
     fun handleReservationNotAvailable(e: ReservationNotAvailable): ErrorDto {
-        return ErrorDto(3, "Reservation not available on selected dates and room")
+        return ErrorDto(4, "Reservation not available on selected dates and room")
     }
 
 }
