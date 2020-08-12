@@ -12,7 +12,7 @@ import java.util.*
 class ReservationService(private val reservationRepository: ReservationRepository) {
 
     fun create(newReservation: Reservation): Reservation {
-        if (!availableToReserve(newReservation.from, newReservation.to, newReservation.room)) throw ReservationNotAvailable()
+        if (!isAvailableToReserve(newReservation.from, newReservation.to, newReservation.room)) throw ReservationNotAvailable()
         return reservationRepository.save(newReservation)
     }
 
@@ -28,10 +28,14 @@ class ReservationService(private val reservationRepository: ReservationRepositor
         return reservationRepository.findAllByUserId(id)
     }
 
-    //
-    private fun availableToReserve(from: Date, to: Date, room: Room): Boolean {
-        val reservationsOnDates: List<Reservation> = reservationRepository.findAllBetweenDates(from, to)
+    // Get all the rooms that are available to reserve on specific dates(from, to)
+    fun findRoomsAvailableToReserveOnDates(from: Date, to: Date): List<Reservation>? {
+        return null
+    }
 
+    private fun isAvailableToReserve(from: Date, to: Date, room: Room): Boolean {
+        val reservationsOnDates: List<Reservation> = reservationRepository.findAllByRoomBetweenDates(room.id, from, to)
+        if (reservationsOnDates.isNotEmpty()) return false
         return true
     }
 

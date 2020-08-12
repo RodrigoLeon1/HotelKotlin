@@ -11,8 +11,12 @@ class Reservation(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
 
+    @Column(name = "`from`")
     val from: Date,
+
+    @Column(name = "`to`")
     val to: Date,
+
     val totalQuantity: Int,
     val totalAdults: Int,
     val totalChildren: Int,

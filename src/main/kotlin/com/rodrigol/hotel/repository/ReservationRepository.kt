@@ -9,14 +9,13 @@ import java.util.*
 @Repository
 interface ReservationRepository: JpaRepository<Reservation, Long> {
 
+    // Bad query... Fix...
     @Query(
             value = "SELECT r.* FROM `reservations` r " +
-                    "INNER JOIN `users` u ON r.id_user = u.id " +
-                    "INNER JOIN `rooms` rm ON r.id_room = rm.id " +
-                    "WHERE (r.from)",
+                    "WHERE (r.id_room = ?1) AND ((DATE(r.from) >= ?2) AND (DATE(r.to) <= ?3))",
             nativeQuery = true
     )
-    fun findAllBetweenDates(from: Date, to: Date): List<Reservation>
+    fun findAllByRoomBetweenDates(room: Long, from: Date, to: Date): List<Reservation>
 
     @Query(
             value = "SELECT r.* FROM `reservations` r " +
