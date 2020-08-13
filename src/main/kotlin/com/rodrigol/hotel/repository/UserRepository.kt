@@ -20,6 +20,6 @@ interface UserRepository: JpaRepository<User, Long> {
                     "WHERE u.id = ?1",
             nativeQuery = true
     )
-    fun updateById(id: Long, name: String, surname: String, dni: String): Boolean
+    fun updateById(id: Long, name: String, surname: String, dni: String): Int
 
 }

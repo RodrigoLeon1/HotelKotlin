@@ -20,7 +20,7 @@ class UserService(private val userRepository: UserRepository) {
 
     fun findById(id: Long): User {
         val user = userRepository.findById(id)
-        if (user.isEmpty) throw UserNotExistException();
+        if (user.isEmpty) throw UserNotExistException()
         return user.get()
     }
 
@@ -28,7 +28,7 @@ class UserService(private val userRepository: UserRepository) {
 
     fun updateById(id: Long, updatedUser: User): Boolean {
         val existUser = findById(id)
-        return userRepository.updateById(id, updatedUser.name, updatedUser.surname, updatedUser.dni)
+        return (userRepository.updateById(id, updatedUser.name, updatedUser.surname, updatedUser.dni) > 0)
     }
 
 }
