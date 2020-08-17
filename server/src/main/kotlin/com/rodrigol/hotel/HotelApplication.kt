@@ -6,6 +6,7 @@ import org.springframework.boot.runApplication
 
 
 @SpringBootApplication(exclude = [SecurityAutoConfiguration::class])
+//@SpringBootApplication()
 class HotelApplication
 
 fun main(args: Array<String>) {

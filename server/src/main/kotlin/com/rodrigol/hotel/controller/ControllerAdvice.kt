@@ -24,11 +24,13 @@ class ControllerAdvice: ResponseEntityExceptionHandler() {
         return ErrorDto(1, "User dni name already exists")
     }
 
+    /*
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UsernameNotFoundException::class)
     fun handleUsernameNotFoundException(e: UsernameNotFoundException): ErrorDto {
         return ErrorDto(2, "The DNI ${e.message} does not exist")
     }
+     */
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserNotExistException::class)

@@ -7,7 +7,3 @@ spring:
 
   jpa:
     show-sql: true
-
-  jwt-security:
-    secret: testkey1234
-    expiration-time: 360
