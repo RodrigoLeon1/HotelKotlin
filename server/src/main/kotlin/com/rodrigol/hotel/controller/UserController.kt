@@ -35,10 +35,7 @@ class UserController(
     fun findById(@PathVariable id: Long): ResponseEntity<User> = ResponseEntity.ok(userService.findById(id))
 
     @PutMapping("/{id}")
-    fun updateById(
-            @PathVariable id: Long,
-            @RequestBody updatedUser: User
-    ): ResponseEntity<Any> {
+    fun updateById(@PathVariable id: Long, @RequestBody updatedUser: User): ResponseEntity<Any> {
         return ResponseEntity.ok(userService.updateById(id, updatedUser))
     }
 

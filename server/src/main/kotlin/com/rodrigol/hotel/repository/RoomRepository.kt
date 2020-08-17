@@ -18,9 +18,6 @@ interface RoomRepository: JpaRepository<Room, Long> {
                     "WHERE r.id = ?1",
             nativeQuery = true
     )
-    fun updateById(
-            id: Long,
-            status: String
-    ): Int
+    fun updateById(id: Long, status: String): Int
 
 }

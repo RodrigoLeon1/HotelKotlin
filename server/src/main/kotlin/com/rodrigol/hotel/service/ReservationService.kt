@@ -29,18 +29,11 @@ class ReservationService(private val reservationRepository: ReservationRepositor
     }
 
     // Get all the rooms that are available to reserve on specific dates(from, to)
-    fun findRoomsAvailableToReserveOnDates(
-            from: Date,
-            to: Date
-    ): List<Reservation>? {
+    fun findRoomsAvailableToReserveOnDates(from: Date, to: Date): List<Reservation>? {
         return null
     }
 
-    private fun isAvailableToReserve(
-            from: Date,
-            to: Date,
-            room: Room
-    ): Boolean {
+    private fun isAvailableToReserve(from: Date, to: Date, room: Room): Boolean {
         val reservationsOnDates: List<Reservation> = reservationRepository.findAllByRoomBetweenDates(room.id, from, to)
         if (reservationsOnDates.isNotEmpty()) return false
         return true

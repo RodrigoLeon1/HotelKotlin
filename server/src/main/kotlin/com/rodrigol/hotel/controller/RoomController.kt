@@ -20,10 +20,7 @@ class RoomController(private val roomService: RoomService) {
     fun findById(@PathVariable id: Long): ResponseEntity<Room> = ResponseEntity.ok(roomService.findById(id))
 
     @PutMapping("/{id}")
-    fun updateById(
-            @PathVariable id: Long,
-            @RequestBody updatedRoom: Room
-    ): ResponseEntity<Any> {
+    fun updateById(@PathVariable id: Long, @RequestBody updatedRoom: Room): ResponseEntity<Any> {
         return ResponseEntity.ok(roomService.updateById(id, updatedRoom))
     }
 

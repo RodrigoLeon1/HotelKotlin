@@ -32,10 +32,7 @@ class UserService(
 
     fun findByDni(dni: String): User? = userRepository.findByDni(dni)
 
-    fun updateById(
-            id: Long,
-            updatedUser: User
-    ): Boolean {
+    fun updateById(id: Long, updatedUser: User): Boolean {
         val existUser = findById(id)
         return (userRepository.updateById(id, updatedUser.name, updatedUser.surname, updatedUser.dni) > 0)
     }

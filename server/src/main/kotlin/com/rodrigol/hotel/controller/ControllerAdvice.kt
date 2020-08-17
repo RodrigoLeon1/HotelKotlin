@@ -7,6 +7,7 @@ import com.rodrigol.hotel.exception.reservation.ReservationNotExistException
 import com.rodrigol.hotel.exception.room.RoomNotExistException
 import com.rodrigol.hotel.exception.user.UserAlreadyExistException
 import com.rodrigol.hotel.exception.user.UserNotExistException
+import io.jsonwebtoken.SignatureException
 import org.springframework.http.HttpStatus
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -21,16 +22,14 @@ class ControllerAdvice: ResponseEntityExceptionHandler() {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistException::class)
     fun handleUserAlreadyExistException(e: UserAlreadyExistException): ErrorDto {
-        return ErrorDto(1, "User dni name already exists")
+        return ErrorDto(1, "User dni already exists")
     }
 
-    /*
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UsernameNotFoundException::class)
     fun handleUsernameNotFoundException(e: UsernameNotFoundException): ErrorDto {
-        return ErrorDto(2, "The DNI ${e.message} does not exist")
+        return ErrorDto(2, "User DNI ${e.message} does not exist")
     }
-     */
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserNotExistException::class)
@@ -63,6 +62,13 @@ class ControllerAdvice: ResponseEntityExceptionHandler() {
     @ExceptionHandler(RoomNotExistException::class)
     fun handleRoomNotExistException(e: RoomNotExistException): ErrorDto {
         return ErrorDto(7, "Room ID does not")
+    }
+
+    /* Auth exceptions */
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(SignatureException::class)
+    fun handleSignatureException(e: SignatureException): ErrorDto {
+        return ErrorDto(20, "JWT signature does not match")
     }
 
 }
