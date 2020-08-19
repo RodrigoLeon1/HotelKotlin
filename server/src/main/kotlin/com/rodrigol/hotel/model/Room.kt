@@ -8,12 +8,12 @@ class Room(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    var id: Long,
 
     val number: String,
 
     @Enumerated(value = EnumType.STRING)
-    val status: RoomStatus,
+    var status: RoomStatus,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_room_floor")

@@ -16,9 +16,10 @@ class RoomService(private val roomRepository: RoomRepository) {
         return room.get()
     }
 
-    fun updateById(id: Long, updatedRoom: Room): Boolean {
+    fun updateById(id: Long, updatedRoom: Room): Room {
         val existRoom = findById(id)
-        return (roomRepository.updateById(id, updatedRoom.status.toString()) > 0)
+        updatedRoom.id = existRoom.id
+        return roomRepository.save(updatedRoom)
     }
 
 }

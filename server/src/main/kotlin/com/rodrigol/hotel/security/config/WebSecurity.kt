@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
@@ -19,18 +18,17 @@ class WebSecurity(val userDetailsService: UserDetailsService) : WebSecurityConfi
 
     @Bean
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
-        return BCryptPasswordEncoder()
+        return BCryptPasswordEncoder(10)
     }
 
     override fun configure(http: HttpSecurity) {
         http
             .csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
             .authorizeRequests()
-            .antMatchers("/api/**").permitAll()
+            .antMatchers("/api/***").permitAll()
             .antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
-            .anyRequest().authenticated()
+            .anyRequest()
+            .authenticated()
             .and()
             .addFilter(JWTAuthenticationFilter(authenticationManager()))
             .addFilter(JWTAuthorizationFilter(authenticationManager()))

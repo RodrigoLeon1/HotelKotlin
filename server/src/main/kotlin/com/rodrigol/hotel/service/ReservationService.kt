@@ -2,14 +2,19 @@ package com.rodrigol.hotel.service
 
 import com.rodrigol.hotel.exception.reservation.ReservationNotAvailable
 import com.rodrigol.hotel.exception.reservation.ReservationNotExistException
+import com.rodrigol.hotel.exception.user.UserNotExistException
 import com.rodrigol.hotel.model.Reservation
 import com.rodrigol.hotel.model.Room
 import com.rodrigol.hotel.repository.ReservationRepository
+import com.rodrigol.hotel.repository.UserRepository
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ReservationService(private val reservationRepository: ReservationRepository) {
+class ReservationService(
+        private val reservationRepository: ReservationRepository,
+        private val userRepository: UserRepository
+) {
 
     fun create(newReservation: Reservation): Reservation {
         if (!isAvailableToReserve(newReservation.from, newReservation.to, newReservation.room)) throw ReservationNotAvailable()
@@ -25,6 +30,8 @@ class ReservationService(private val reservationRepository: ReservationRepositor
     }
 
     fun findAllByUserId(id: Long): List<Reservation> {
+        val user = userRepository.findById(id)
+        if (user.isEmpty) throw UserNotExistException()
         return reservationRepository.findAllByUserId(id)
     }
 

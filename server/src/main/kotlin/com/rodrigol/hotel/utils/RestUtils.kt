@@ -7,7 +7,7 @@ class RestUtils {
 
     companion object {
         @JvmStatic
-        fun getLocation(id: Long): URI = ServletUriComponentsBuilder
+        fun getLocation(id: Long?): URI = ServletUriComponentsBuilder
                                             .fromCurrentRequest()
                                             .path("/{id}")
                                             .buildAndExpand(id)

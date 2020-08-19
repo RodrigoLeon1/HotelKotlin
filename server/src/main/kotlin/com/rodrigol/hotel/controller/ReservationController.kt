@@ -3,7 +3,6 @@ package com.rodrigol.hotel.controller
 import com.rodrigol.hotel.model.Reservation
 import com.rodrigol.hotel.service.ReservationService
 import com.rodrigol.hotel.utils.RestUtils
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -20,7 +19,7 @@ class ReservationController(private val reservationService: ReservationService) 
     @GetMapping("/")
     fun findAll(): ResponseEntity<List<Reservation>> {
         val reservations = reservationService.findAll()
-        return if (reservations.isNotEmpty()) ResponseEntity.ok(reservations) else ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+        return if (reservations.isNotEmpty()) ResponseEntity.ok(reservations) else ResponseEntity.noContent().build()
     }
 
     @GetMapping("/{id}")

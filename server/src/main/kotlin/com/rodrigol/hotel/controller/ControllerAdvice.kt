@@ -1,6 +1,6 @@
 package com.rodrigol.hotel.controller
 
-import com.rodrigol.hotel.dto.ErrorDto
+import com.rodrigol.hotel.dto.error.ErrorDTO
 import com.rodrigol.hotel.exception.observation.ObservationNotExistException
 import com.rodrigol.hotel.exception.reservation.ReservationNotAvailable
 import com.rodrigol.hotel.exception.reservation.ReservationNotExistException
@@ -21,54 +21,54 @@ class ControllerAdvice: ResponseEntityExceptionHandler() {
     /* Users exceptions */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistException::class)
-    fun handleUserAlreadyExistException(e: UserAlreadyExistException): ErrorDto {
-        return ErrorDto(1, "User dni already exists")
+    fun handleUserAlreadyExistException(e: UserAlreadyExistException): ErrorDTO {
+        return ErrorDTO(1000, "User dni already exists")
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UsernameNotFoundException::class)
-    fun handleUsernameNotFoundException(e: UsernameNotFoundException): ErrorDto {
-        return ErrorDto(2, "User DNI ${e.message} does not exist")
+    fun handleUsernameNotFoundException(e: UsernameNotFoundException): ErrorDTO {
+        return ErrorDTO(1001, "User DNI ${e.message} does not exist")
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotExistException::class)
-    fun handleUserNotExistException(e: UserNotExistException): ErrorDto {
-        return ErrorDto(3, "User ID does not")
+    fun handleUserNotExistException(e: UserNotExistException): ErrorDTO {
+        return ErrorDTO(1002, "User ID does not exist")
     }
 
     /* Reservations exceptions */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ReservationNotExistException::class)
-    fun handleReservationNotExistException(e: ReservationNotExistException): ErrorDto {
-        return ErrorDto(4, "Reservation ID does not")
+    fun handleReservationNotExistException(e: ReservationNotExistException): ErrorDTO {
+        return ErrorDTO(2001, "Reservation ID does not exist")
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ReservationNotAvailable::class)
-    fun handleReservationNotAvailable(e: ReservationNotAvailable): ErrorDto {
-        return ErrorDto(5, "Reservation not available on selected dates and room")
+    fun handleReservationNotAvailable(e: ReservationNotAvailable): ErrorDTO {
+        return ErrorDTO(2002, "Reservation not available on selected dates and room")
     }
 
     /* Observations exceptions */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ObservationNotExistException::class)
-    fun handleObservationNotExistException(e: ObservationNotExistException): ErrorDto {
-        return ErrorDto(6, "Observation ID does not")
+    fun handleObservationNotExistException(e: ObservationNotExistException): ErrorDTO {
+        return ErrorDTO(3001, "Observation ID does not exist")
     }
 
     /* Rooms exceptions */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(RoomNotExistException::class)
-    fun handleRoomNotExistException(e: RoomNotExistException): ErrorDto {
-        return ErrorDto(7, "Room ID does not")
+    fun handleRoomNotExistException(e: RoomNotExistException): ErrorDTO {
+        return ErrorDTO(4001, "Room ID does not exist")
     }
 
     /* Auth exceptions */
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(SignatureException::class)
-    fun handleSignatureException(e: SignatureException): ErrorDto {
-        return ErrorDto(20, "JWT signature does not match")
+    fun handleSignatureException(e: SignatureException): ErrorDTO {
+        return ErrorDTO(5001, "JWT signature does not match")
     }
 
 }

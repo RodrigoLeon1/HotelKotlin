@@ -23,7 +23,6 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenti
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
 
         val header = request.getHeader(HEADER_STRING)
-
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(request, response)
             return
@@ -40,11 +39,10 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager) : BasicAuthenti
         if (token != null) {
             // parse the token.
             val user = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody()
-                    .getSubject()
-
+                                .setSigningKey(SECRET)
+                                .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
+                                .body
+                                .subject
             return if (user != null)
                 UsernamePasswordAuthenticationToken(user, null, emptyList<GrantedAuthority>())
             else

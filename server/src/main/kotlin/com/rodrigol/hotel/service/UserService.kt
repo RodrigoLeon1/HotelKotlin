@@ -7,6 +7,7 @@ import com.rodrigol.hotel.repository.UserRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 
 import org.springframework.stereotype.Service
+//import java.sql.SQLIntegrityConstraintViolationException
 
 @Service
 class UserService(
@@ -16,7 +17,7 @@ class UserService(
 
     fun create(newUser: User): User {
         val existUser = findByDni(newUser.dni)
-        if (existUser != null) throw UserAlreadyExistException()
+        if (null != existUser) throw UserAlreadyExistException()
         // Hash the password
         newUser.password = bCryptPasswordEncoder.encode(newUser.password)
         return userRepository.save(newUser)
@@ -32,9 +33,17 @@ class UserService(
 
     fun findByDni(dni: String): User? = userRepository.findByDni(dni)
 
-    fun updateById(id: Long, updatedUser: User): Boolean {
-        val existUser = findById(id)
-        return (userRepository.updateById(id, updatedUser.name, updatedUser.surname, updatedUser.dni) > 0)
+    fun updateById(id: Long, updatedUser: User): User {
+        try {
+
+            val existUser = findById(id)
+            updatedUser.id = existUser.id
+            updatedUser.password = bCryptPasswordEncoder.encode(updatedUser.password)
+            return userRepository.save(updatedUser)
+
+        } catch (e: Exception) {    // Search exception...
+            throw UserAlreadyExistException()
+        }
     }
 
 }
