@@ -1,6 +1,7 @@
 package com.rodrigol.hotel.controller
 
 import com.rodrigol.hotel.dto.error.ErrorDTO
+import com.rodrigol.hotel.exception.auth.AuthNotEnabledException
 import com.rodrigol.hotel.exception.observation.ObservationNotExistException
 import com.rodrigol.hotel.exception.reservation.ReservationNotAvailable
 import com.rodrigol.hotel.exception.reservation.ReservationNotExistException
@@ -69,6 +70,12 @@ class ControllerAdvice: ResponseEntityExceptionHandler() {
     @ExceptionHandler(SignatureException::class)
     fun handleSignatureException(e: SignatureException): ErrorDTO {
         return ErrorDTO(5001, "JWT signature does not match")
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(AuthNotEnabledException::class)
+    fun handleAuthNotEnabledException(e: AuthNotEnabledException): ErrorDTO {
+        return ErrorDTO(5002, "User account is disabled")
     }
 
 }

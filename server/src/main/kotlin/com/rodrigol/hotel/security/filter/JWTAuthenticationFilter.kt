@@ -2,7 +2,7 @@ package com.rodrigol.hotel.security.filter
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.rodrigol.hotel.security.config.EXPIRATION_TIME
-import com.rodrigol.hotel.security.config.HEADER_STRING
+import com.rodrigol.hotel.security.config.HEADER_STRING_AUTH
 import com.rodrigol.hotel.security.config.SECRET
 import com.rodrigol.hotel.security.config.TOKEN_PREFIX
 import io.jsonwebtoken.Jwts
@@ -30,27 +30,31 @@ class JWTAuthenticationFilter(authManager: AuthenticationManager) : UsernamePass
     @Throws(AuthenticationException::class, IOException::class, ServletException::class)
     override fun attemptAuthentication(req: HttpServletRequest, res: HttpServletResponse): Authentication {
 
-        val creds = ObjectMapper().readValue(req.inputStream, com.rodrigol.hotel.model.User::class.java)
+        val credentials = ObjectMapper().readValue(req.inputStream, com.rodrigol.hotel.model.User::class.java)
 
-        return authenticationManager.authenticate(
-                UsernamePasswordAuthenticationToken(
-                        creds.dni,
-                        creds.password,
-                        emptyList<GrantedAuthority>()
-                )
+        val authentication =  UsernamePasswordAuthenticationToken(
+                credentials.dni,
+                credentials.password,
+                emptyList<GrantedAuthority>()
         )
+
+        return authenticationManager.authenticate(authentication)
     }
 
-    @Throws(IOException::class, ServletException::class)
-    override fun successfulAuthentication(req: HttpServletRequest, res: HttpServletResponse, chain: FilterChain?, auth: Authentication) {
+    override fun successfulAuthentication(req: HttpServletRequest,
+                                          res: HttpServletResponse,
+                                          chain: FilterChain?,
+                                          auth: Authentication) {
 
         val tokenJwt = Jwts.builder()
                                 .setSubject((auth.principal as User).username)
+                                .claim("authorities", auth.authorities)
+                                .setIssuedAt(Date())
                                 .setExpiration(Date(System.currentTimeMillis() + EXPIRATION_TIME))
                                 .signWith(SignatureAlgorithm.HS512, SECRET)
                                 .compact()
 
-        res.addHeader(HEADER_STRING, "$TOKEN_PREFIX $tokenJwt")
+        res.addHeader(HEADER_STRING_AUTH, "$TOKEN_PREFIX $tokenJwt")
     }
 
 }

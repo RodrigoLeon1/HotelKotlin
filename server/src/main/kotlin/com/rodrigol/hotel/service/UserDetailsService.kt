@@ -1,5 +1,6 @@
 package com.rodrigol.hotel.service
 
+import com.rodrigol.hotel.exception.auth.AuthNotEnabledException
 import com.rodrigol.hotel.repository.UserRepository
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -12,14 +13,12 @@ import org.springframework.transaction.annotation.Transactional
 class UserDetailsService(val userRepository: UserRepository) : UserDetailsService {
 
     @Transactional(readOnly = true)
-    @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(dni: String): UserDetails {
         val user = userRepository.findByDni(dni) ?: throw UsernameNotFoundException(dni)
-        return User(user.dni, user.password, emptyList())
-    }
 
-    fun save(user: com.rodrigol.hotel.model.User) {
-        userRepository.save(user)
+        if (!user.isActive!!) throw AuthNotEnabledException()
+
+        return User(user.dni, user.password, emptyList())
     }
 
 }
