@@ -1,11 +1,17 @@
 import React from 'react';
-import Login from './pages/Login/Login';
+import { Switch, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="container-f">
-      <Login/>
-    </div>
+import Login from './pages/Login/Login';
+import Home from './pages/Home/Home';
+import Dashboard from './components/Dashboard/Dashboard';
+
+const App = () => {
+  return (    
+    <Switch>
+      <Route exact path="/" component={Login} />
+      <Route path="/dashboard" component={Dashboard} />      
+      {/* <Route component={Login} /> */}
+    </Switch>        
   );
 }
 

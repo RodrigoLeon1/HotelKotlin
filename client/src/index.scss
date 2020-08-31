@@ -1,0 +1,48 @@
+// Colors
+$primary-dark: #383e56;
+$primary-white: #ffffff;
+$primary-colorful: #ff3465;
+$primary-background: #ffffff;
+$primary-background-alternative: #eedad1;
+$secundary-background: #d4b5b0;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;  
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;  
+}
+
+span {
+  color: $primary-colorful;
+}
+
+.input-primary {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.btn-primary {    
+  padding: 15px 40px;  
+  font-weight: 500;      
+  cursor: pointer;
+  color: $primary-white;
+  background-color: $primary-colorful;
+  font-size: 1rem;
+  border: none;
+  overflow: hidden;  
+  transition: all .3s ease-in-out;
+  border-radius: .9999999em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: $primary-dark;  
+  }
+
+}

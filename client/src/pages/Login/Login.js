@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Login.css"
+import "./Login.scss"
 
 const Login = () => {
 
@@ -12,16 +12,16 @@ const Login = () => {
     <div className="login-container">
       <div className="login-container__content">
         <h2>          
-          <span>¡Hola!</span>
+          <span>¡Bievenido!</span>
         </h2>
         <p>
           Ingrese sus datos para ingresar al sistema.
         </p>
         <div>
           <form className="login-container__form" onSubmit={handleSubmit}>              
-            <input className="input-primary" type="text" placeholder="Email" />
-            <input className="input-primary" type="text" placeholder="Contraseña" />            
-            <input className="btn-primary btn-scs" type="submit" value="Acceder" />
+            <input className="input-primary" type="email" name="email" placeholder="Email" required />
+            <input className="input-primary" type="password" name="password" placeholder="Contraseña" required />                    
+            <input className="btn-primary" type="submit" value="Acceder" />             
           </form>
         </div>
       </div>

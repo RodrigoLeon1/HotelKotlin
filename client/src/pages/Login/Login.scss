@@ -1,38 +1,39 @@
-.container-f {  
-  height: 100vh;
-  background-color: #eedad1;
-  background-color: #fff;
-}
+@import '../../index.scss';
+
 
 .login-container {  
   display: grid;  
   grid-template-columns: 1fr 1fr;
   text-align: center;
   height: 100vh;  
+  transition: all .3s ease-in;
 }
 
 .login-container__content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column;  
   justify-content: center;
-}
 
-.login-container__content h2 {
-  margin: 0;
-  padding: 0;
-  text-transform: uppercase;
-  font-size: 3rem;
-  font-weight: 700;
-}
+  & h2 {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-size: 3rem;
+    font-weight: 700;
+  }
 
-.login-container__content p {
-  color: #383e56;
-  font-weight: 600;
-  margin-bottom: 2rem;
+  & p {
+    color: $primary-dark;
+    font-weight: 600;
+    margin-top: .5rem;
+    margin-bottom: 2rem;
+  }
+
 }
 
 .login-container__form {
+  max-width: 50%;  
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +41,7 @@
 }
 
 .login-container__picture {
-  background-color: #383e56;
+  background-color: $primary-dark;
   background-image: url(https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
   background-position: center;
   background-size: cover;
@@ -49,7 +50,7 @@
 @media (max-width: 768px) {
   
   .login-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;        
   }
 
   .login-container__picture {
